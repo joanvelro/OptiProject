@@ -1,0 +1,58 @@
+{
+  "Workers": [
+    {
+      "Worker": "JhonDoe",
+      "Name": "Jhon"
+    },
+    {
+      "Worker": "PD",
+      "Name": "PaulaDeus"
+    },
+    {
+      "Worker": "OS",
+      "Name": "OscarSmith"
+    }
+  ],
+    "Periods": [
+    {
+      "Period": "T1",
+      "Name": "Monday"
+    },
+    {
+      "Period": "T2",
+      "Name": "Tuesday"
+    },
+    {
+      "Period": "T3",
+      "Name": "Wednesday"
+    },
+      {
+      "Period": "T4",
+      "Name": "Thursday"
+    },
+      {
+      "Period": "T5",
+      "Name": "Friday"
+    }
+  ],
+    "Shifts": [
+      {
+        "Shift": "Morning",
+        "Period": ["T1", "T2", "T3", "T4", "T5"]
+      },
+            {
+        "Shift": "Night",
+        "Period": ["T1", "T3", "T5"]
+      }
+    ],
+  "Configuration": [
+    {
+      "Hours Per Shift": 4,
+      "Daily Hours Limit": 9,
+      "Work Load":  12,
+      "ProjectName": "McDonalds",
+      "Date": "2022-03-01",
+      "Unitary Cost": 150
+    }
+  ]
+}

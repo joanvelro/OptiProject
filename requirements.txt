@@ -1,0 +1,13 @@
+Pyomo~=6.2
+numpy==1.23.1
+pandas==1.4.3
+pyvis==0.1.9
+ipykernel==6.4.1
+flake8==4.0.1
+matplotlib~=3.5.0
+ortools~=9.3.10497
+pyodbc~=4.0.30
+joblib~=0.14.1
+pyodbc~=4.0.26
+sqlalchemy~=1.4.35
+Sphinx>=4.5.0
