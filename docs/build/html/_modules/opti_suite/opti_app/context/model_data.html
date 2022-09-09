@@ -1,0 +1,222 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>opti_suite.opti_app.context.model_data &#8212; OptiSuite-OptiApp 0.1 documentation</title>
+    <link rel="stylesheet" href="../../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for opti_suite.opti_app.context.model_data</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. module:: opti_suite.opti_app.context.model_data</span>
+<span class="sd">   :synopsis: This class defines the data class for the input data instance</span>
+
+<span class="sd">.. moduleauthor:: (C) Jose Angel Velasco - 2022</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="ModelData"><a class="viewcode-back" href="../../../../index.html#opti_suite.opti_app.context.model_data.ModelData">[docs]</a><span class="k">class</span> <span class="nc">ModelData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ``This class defines the data class ModelData for the optimization library.</span>
+<span class="sd">    It contains the structures of input data for the optimization problem, loaded from the input request</span>
+<span class="sd">    as well as the solution data.``</span>
+
+<span class="sd">            *Attributes*:</span>
+
+<span class="sd">                *workers* :</span>
+<span class="sd">                ``Dataframe with the input data for unit workers.``</span>
+
+<span class="sd">                *periods* :</span>
+<span class="sd">                ``Dataframe with the input data planning periods.``</span>
+
+<span class="sd">                *shifts* :</span>
+<span class="sd">                ``Dictionary with the time periods for each shift.``</span>
+
+<span class="sd">                *shifts_list* :</span>
+<span class="sd">                ``List of shifts.``</span>
+
+<span class="sd">                *configuration* :</span>
+<span class="sd">                ``Configuration parameters (dataframe).``</span>
+
+<span class="sd">                *solution_schedules_worker* :</span>
+<span class="sd">                ``Dictionary with the schedule solution of workers.``</span>
+
+<span class="sd">                *solution_necessary_worker* :</span>
+<span class="sd">                ``Dictionary with the scheduled workers.``</span>
+
+<span class="sd">             *Methods*:</span>
+
+<span class="sd">                *set_configuration*</span>
+
+<span class="sd">                *set_workers*</span>
+
+<span class="sd">                *set_periods*</span>
+
+<span class="sd">                *set_shifts*</span>
+
+<span class="sd">                *set_shifts_ids*</span>
+
+<span class="sd">                *add_solution_scheduled_worker*</span>
+
+<span class="sd">                *add_solution_needed_worker*</span>
+
+<span class="sd">                *get_configuration*</span>
+
+<span class="sd">                *get_config_parameter*</span>
+
+<span class="sd">                *get_workers*</span>
+
+<span class="sd">                *get_periods*</span>
+
+<span class="sd">                *get_shifts*</span>
+
+<span class="sd">                *get_shifts_ids*</span>
+
+<span class="sd">                *get_solution_scheduled_workers*</span>
+
+<span class="sd">                *get_solution_needed_worker*</span>
+
+
+<span class="sd">            &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__workers</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__periods</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shifts</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shifts_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__solution_schedules_worker</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__solution_necessary_worker</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">set_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">configuration_df</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__configuration</span> <span class="o">=</span> <span class="n">configuration_df</span>
+
+    <span class="k">def</span> <span class="nf">set_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">workers</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__workers</span> <span class="o">=</span> <span class="n">workers</span>
+
+    <span class="k">def</span> <span class="nf">set_periods</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">periods</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__periods</span> <span class="o">=</span> <span class="n">periods</span>
+
+    <span class="k">def</span> <span class="nf">set_shifts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shifts_dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shifts</span> <span class="o">=</span> <span class="n">shifts_dict</span>
+
+    <span class="k">def</span> <span class="nf">set_shifts_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shifts_list</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__shifts_list</span> <span class="o">=</span> <span class="n">shifts_list</span>
+
+    <span class="k">def</span> <span class="nf">add_solution_scheduled_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worker</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">shift</span><span class="p">,</span> <span class="n">schedule_boolean</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__solution_schedules_worker</span><span class="p">[</span><span class="n">worker</span><span class="p">,</span> <span class="n">period</span><span class="p">,</span> <span class="n">shift</span><span class="p">]</span> <span class="o">=</span> <span class="n">schedule_boolean</span>
+
+    <span class="k">def</span> <span class="nf">add_solution_needed_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worker</span><span class="p">,</span> <span class="n">necessary_boolean</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__solution_necessary_worker</span><span class="p">[</span><span class="n">worker</span><span class="p">]</span> <span class="o">=</span> <span class="n">necessary_boolean</span>
+    <span class="c1"># ----------------------------------------------------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">get_config_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">colname</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__configuration</span><span class="p">[</span><span class="n">colname</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">get_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__workers</span>
+
+    <span class="k">def</span> <span class="nf">get_periods</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__periods</span>
+
+    <span class="k">def</span> <span class="nf">get_shifts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shifts</span>
+
+    <span class="k">def</span> <span class="nf">get_shifts_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__shifts_list</span>
+
+    <span class="k">def</span> <span class="nf">get_solution_scheduled_workers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__solution_schedules_worker</span>
+
+    <span class="k">def</span> <span class="nf">get_solution_needed_worker</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__solution_necessary_worker</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../../../index.html">OptiSuite-OptiApp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Jose Angel Velasco.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

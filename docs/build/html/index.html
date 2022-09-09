@@ -1,0 +1,406 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Optimization Project with Autodoc using Sphinx &#8212; OptiSuite-OptiApp 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="optimization-project-with-autodoc-using-sphinx">
+<h1>Optimization Project with Autodoc using Sphinx<a class="headerlink" href="#optimization-project-with-autodoc-using-sphinx" title="Permalink to this headline">¶</a></h1>
+<p>This is a template for a simple optimization project</p>
+<a class="reference internal image-reference" href="images/opti.png"><img alt="images/opti.png" src="images/opti.png" style="width: 400px;" /></a>
+<div class="section" id="how-to-run-the-library">
+<h2>How to run the library<a class="headerlink" href="#how-to-run-the-library" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p>Create an input data instance from a json file:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opti_suite.opti_app.factory.model_data_factory</span> <span class="pre">import</span> <span class="pre">ModelDataFactory</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">=</span> <span class="pre">ModelDataFactory.create_from_json_file(input_json=&lt;file-path-to-json-input&gt;)</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Create and instance of the optimization engine with the input data and execute:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">opti_suite.opti_app.model.engine</span> <span class="pre">import</span> <span class="pre">Engine</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">engine</span> <span class="pre">=</span> <span class="pre">Engine(data=data)</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">engine.execute()</span></code></p>
+</div></blockquote>
+</li>
+<li><p>Get the response in json format:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">json_response</span> <span class="pre">=</span> <span class="pre">engine.generate_json_response()</span></code></p>
+</div></blockquote>
+</li>
+</ol>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="module-opti_suite.opti_app.model.engine">
+<span id="engine"></span><h2>Engine<a class="headerlink" href="#module-opti_suite.opti_app.model.engine" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-0"></span><dl class="py class">
+<dt id="opti_suite.opti_app.model.engine.Engine">
+<em class="property">class </em><code class="sig-prename descclassname">opti_suite.opti_app.model.engine.</code><code class="sig-name descname">Engine</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#opti_suite.opti_app.context.model_data.ModelData" title="opti_suite.opti_app.context.model_data.ModelData">opti_suite.opti_app.context.model_data.ModelData</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">class</span> <span class="pre">defines</span> <span class="pre">the</span> <span class="pre">LocalSolver</span> <span class="pre">engine</span> <span class="pre">for</span> <span class="pre">build</span> <span class="pre">and</span> <span class="pre">solve</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">problem</span></code></p>
+<blockquote>
+<div><p><em>Attributes</em>:</p>
+<blockquote>
+<div><p><em>status</em> :
+<code class="docutils literal notranslate"><span class="pre">Status</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">execution.</span></code></p>
+<p><em>model</em> :
+<code class="docutils literal notranslate"><span class="pre">Instance</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">model.</span></code></p>
+<p><em>data</em> :
+<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">ModelData</span> <span class="pre">data</span> <span class="pre">instance.</span></code></p>
+<p><em>response</em> :
+<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">ModelResponse</span> <span class="pre">data</span> <span class="pre">instance.</span></code></p>
+<p><em>results</em> :
+<code class="docutils literal notranslate"><span class="pre">Optimization</span> <span class="pre">model</span> <span class="pre">results</span></code></p>
+</div></blockquote>
+<p><em>Methods</em>:</p>
+<blockquote>
+<div><p><em>execute</em> :
+<code class="docutils literal notranslate"><span class="pre">Run</span> <span class="pre">DataAnalyzer</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">instance</span> <span class="pre">DataModel,</span> <span class="pre">build</span> <span class="pre">the</span> <span class="pre">model,</span> <span class="pre">solve</span> <span class="pre">the</span> <span class="pre">model</span> <span class="pre">and</span> <span class="pre">build</span>
+<span class="pre">model</span> <span class="pre">response.</span></code></p>
+<p><em>get_response</em> :
+<code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">the</span> <span class="pre">ModelResponse</span> <span class="pre">instance</span> <span class="pre">generated</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">ModelResponseFactory</span> <span class="pre">with</span> <span class="pre">solution</span> <span class="pre">of</span> <span class="pre">saved</span> <span class="pre">in</span>
+<span class="pre">ModelData.</span></code></p>
+<p><em>generate_json_response</em> :
+<code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">the</span> <span class="pre">json</span> <span class="pre">response</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">solution.</span></code></p>
+<p><em>generate_excel_response</em> :
+<code class="docutils literal notranslate"><span class="pre">Get</span> <span class="pre">the</span> <span class="pre">excel</span> <span class="pre">response</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">solution.</span></code></p>
+<p><em>generate_solver_factory</em>
+<code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">solver</span> <span class="pre">factory</span> <span class="pre">based</span> <span class="pre">on</span> <span class="pre">the</span> <span class="pre">solver</span> <span class="pre">choose</span></code></p>
+<p><em>has_solution</em>
+<code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">solver</span> <span class="pre">founded</span> <span class="pre">a</span> <span class="pre">solution</span> <span class="pre">and</span> <span class="pre">the</span> <span class="pre">quality</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">solution</span></code></p>
+</div></blockquote>
+</div></blockquote>
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.execute">
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">verbosity</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">solver</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'cbc'</span></em>, <em class="sig-param"><span class="n">opt_parameters</span><span class="p">:</span> <span class="n">dict</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.execute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.execute" title="Permalink to this definition">¶</a></dt>
+<dd><dl>
+<dt><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">method</span> <span class="pre">trigger</span> <span class="pre">the</span> <span class="pre">engine</span> <span class="pre">optimization</span> <span class="pre">module.</span></code></dt><dd><p><em>Arguments</em> :</p>
+<blockquote>
+<div><p><em>verbosity</em> :
+<code class="docutils literal notranslate"><span class="pre">Verbosity</span> <span class="pre">of</span> <span class="pre">engine</span> <span class="pre">(by</span> <span class="pre">default</span> <span class="pre">True).</span></code></p>
+<p><em>solver</em> :
+<code class="docutils literal notranslate"><span class="pre">Solver</span> <span class="pre">to</span> <span class="pre">be</span> <span class="pre">used</span> <span class="pre">(string).</span></code></p>
+<p><em>opt_parameters</em> :
+<code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">solver</span> <span class="pre">parameters.</span></code></p>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.generate_excel_report">
+<code class="sig-name descname">generate_excel_report</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.generate_excel_report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.generate_excel_report" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">the</span> <span class="pre">response</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">planning</span> <span class="pre">engine</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">logistic</span> <span class="pre">problem</span> <span class="pre">in</span> <span class="pre">Excel</span> <span class="pre">format</span></code></p>
+<dl class="simple">
+<dt><em>Arguments</em>:</dt><dd><dl class="simple">
+<dt><em>output_filename</em>:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">(str,</span> <span class="pre">optional):</span> <span class="pre">Path</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">response</span> <span class="pre">file.</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.generate_json_response">
+<code class="sig-name descname">generate_json_response</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_filename</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">rounded</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; dict<a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.generate_json_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.generate_json_response" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Generate</span> <span class="pre">the</span> <span class="pre">response</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">planning</span> <span class="pre">engine</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">logistic</span> <span class="pre">problem</span> <span class="pre">in</span> <span class="pre">json</span> <span class="pre">format</span></code></p>
+<dl>
+<dt><em>Arguments</em>:</dt><dd><dl class="simple">
+<dt><em>output_filename</em>:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">(str,</span> <span class="pre">optional):</span> <span class="pre">Path</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">response</span> <span class="pre">file.</span></code></p>
+</dd>
+</dl>
+<p><em>rounded</em>:
+<code class="docutils literal notranslate"><span class="pre">(bool,</span> <span class="pre">optional):</span> <span class="pre">If</span> <span class="pre">True,</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">values</span> <span class="pre">will</span> <span class="pre">be</span> <span class="pre">rounded.</span></code></p>
+</dd>
+</dl>
+<p><em>Returns</em>:</p>
+<blockquote>
+<div><p><em>json_response</em>:
+<code class="docutils literal notranslate"><span class="pre">dict:</span> <span class="pre">Response</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">planning</span> <span class="pre">engine</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">logistic</span> <span class="pre">problem</span> <span class="pre">in</span> <span class="pre">json</span> <span class="pre">format</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">output_filename</span> <span class="pre">param</span>
+<span class="pre">is</span> <span class="pre">not</span> <span class="pre">provided.</span> <span class="pre">Otherwise,</span> <span class="pre">None.</span></code></p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.generate_solver_factory">
+<code class="sig-name descname">generate_solver_factory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">solver</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">opt_parameters</span><span class="p">:</span> <span class="n">dict</span></em><span class="sig-paren">)</span> &#x2192; &lt;pyomo.opt.base.solvers.SolverFactoryClass object at 0x000001A24B2B8700&gt;<a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.generate_solver_factory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.generate_solver_factory" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Configure</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">solver</span> <span class="pre">and</span> <span class="pre">its</span> <span class="pre">parameters.</span></code></p>
+<dl>
+<dt><em>Arguments</em>:</dt><dd><dl class="simple">
+<dt><em>solver</em> :</dt><dd><p><code class="docutils literal notranslate"><span class="pre">(str):</span> <span class="pre">Name</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">solver.</span></code></p>
+</dd>
+</dl>
+<p><em>opt_parameters</em>:
+<code class="docutils literal notranslate"><span class="pre">(dict):</span> <span class="pre">Parameters</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">solver.</span></code></p>
+</dd>
+<dt><em>Returns</em>:</dt><dd><p><em>opt</em>:
+<code class="docutils literal notranslate"><span class="pre">pyo.SolverFactory:</span> <span class="pre">A</span> <span class="pre">pyo.SolverFactory</span> <span class="pre">class</span> <span class="pre">instance</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">configuration</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">solver.</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.get_response">
+<code class="sig-name descname">get_response</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.get_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Returns</span> <span class="pre">the</span> <span class="pre">ModelResponse</span> <span class="pre">instance</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">solution</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">problem</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="opti_suite.opti_app.model.engine.Engine.has_solution">
+<code class="sig-name descname">has_solution</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="reference internal" href="_modules/opti_suite/opti_app/model/engine.html#Engine.has_solution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.model.engine.Engine.has_solution" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">Check</span> <span class="pre">whether</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">problem</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">solved.</span></code></p>
+<dl class="simple">
+<dt><em>Returns</em>:</dt><dd><p><em>bool</em>:
+<code class="docutils literal notranslate"><span class="pre">If</span> <span class="pre">true,</span> <span class="pre">the</span> <span class="pre">problem</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">solved.</span> <span class="pre">Otherwise,</span> <span class="pre">false.</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-opti_suite.opti_app.context.model_data">
+<span id="model-data"></span><h2>Model Data<a class="headerlink" href="#module-opti_suite.opti_app.context.model_data" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-1"></span><dl class="py class">
+<dt id="opti_suite.opti_app.context.model_data.ModelData">
+<em class="property">class </em><code class="sig-prename descclassname">opti_suite.opti_app.context.model_data.</code><code class="sig-name descname">ModelData</code><a class="reference internal" href="_modules/opti_suite/opti_app/context/model_data.html#ModelData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.context.model_data.ModelData" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">class</span> <span class="pre">defines</span> <span class="pre">the</span> <span class="pre">data</span> <span class="pre">class</span> <span class="pre">ModelData</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">library.</span>
+<span class="pre">It</span> <span class="pre">contains</span> <span class="pre">the</span> <span class="pre">structures</span> <span class="pre">of</span> <span class="pre">input</span> <span class="pre">data</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">problem,</span> <span class="pre">loaded</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">request</span>
+<span class="pre">as</span> <span class="pre">well</span> <span class="pre">as</span> <span class="pre">the</span> <span class="pre">solution</span> <span class="pre">data.</span></code></p>
+<blockquote>
+<div><p><em>Attributes</em>:</p>
+<blockquote>
+<div><blockquote>
+<div><p><em>workers</em> :
+<code class="docutils literal notranslate"><span class="pre">Dataframe</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">data</span> <span class="pre">for</span> <span class="pre">unit</span> <span class="pre">workers.</span></code></p>
+<p><em>periods</em> :
+<code class="docutils literal notranslate"><span class="pre">Dataframe</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">data</span> <span class="pre">planning</span> <span class="pre">periods.</span></code></p>
+<p><em>shifts</em> :
+<code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">time</span> <span class="pre">periods</span> <span class="pre">for</span> <span class="pre">each</span> <span class="pre">shift.</span></code></p>
+<p><em>shifts_list</em> :
+<code class="docutils literal notranslate"><span class="pre">List</span> <span class="pre">of</span> <span class="pre">shifts.</span></code></p>
+<p><em>configuration</em> :
+<code class="docutils literal notranslate"><span class="pre">Configuration</span> <span class="pre">parameters</span> <span class="pre">(dataframe).</span></code></p>
+<p><em>solution_schedules_worker</em> :
+<code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">schedule</span> <span class="pre">solution</span> <span class="pre">of</span> <span class="pre">workers.</span></code></p>
+<p><em>solution_necessary_worker</em> :
+<code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">with</span> <span class="pre">the</span> <span class="pre">scheduled</span> <span class="pre">workers.</span></code></p>
+</div></blockquote>
+<p><em>Methods</em>:</p>
+<blockquote>
+<div><p><em>set_configuration</em></p>
+<p><em>set_workers</em></p>
+<p><em>set_periods</em></p>
+<p><em>set_shifts</em></p>
+<p><em>set_shifts_ids</em></p>
+<p><em>add_solution_scheduled_worker</em></p>
+<p><em>add_solution_needed_worker</em></p>
+<p><em>get_configuration</em></p>
+<p><em>get_config_parameter</em></p>
+<p><em>get_workers</em></p>
+<p><em>get_periods</em></p>
+<p><em>get_shifts</em></p>
+<p><em>get_shifts_ids</em></p>
+<p><em>get_solution_scheduled_workers</em></p>
+<p><em>get_solution_needed_worker</em></p>
+</div></blockquote>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="model-response">
+<h2>Model Response<a class="headerlink" href="#model-response" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-opti_suite.opti_app.context.model_response"></span><span class="target" id="module-2"></span><dl class="py class">
+<dt id="opti_suite.opti_app.context.model_response.ModelResponse">
+<em class="property">class </em><code class="sig-prename descclassname">opti_suite.opti_app.context.model_response.</code><code class="sig-name descname">ModelResponse</code><a class="reference internal" href="_modules/opti_suite/opti_app/context/model_response.html#ModelResponse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.context.model_response.ModelResponse" title="Permalink to this definition">¶</a></dt>
+<dd><p><cite>This class defines the ModelResponse data class with the response of the optimization engine.</cite></p>
+<blockquote>
+<div><p><em>Attributes</em>:</p>
+<blockquote>
+<div><p><em>schedule</em> :
+<code class="docutils literal notranslate"><span class="pre">DataFrame</span> <span class="pre">that</span> <span class="pre">contains</span> <span class="pre">the</span> <span class="pre">schedule</span> <span class="pre">solution.</span></code></p>
+</div></blockquote>
+<p><em>Methods</em>:</p>
+<blockquote>
+<div><p><em>set_schedule</em> :
+<code class="docutils literal notranslate"><span class="pre">Define</span> <span class="pre">the</span> <span class="pre">schedule</span> <span class="pre">data</span> <span class="pre">frame.</span></code></p>
+<p><em>get_schedule</em> :
+<code class="docutils literal notranslate"><span class="pre">Return</span> <span class="pre">the</span> <span class="pre">schedule</span> <span class="pre">data</span> <span class="pre">frame.</span></code></p>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="module-opti_suite.opti_app.context.exception">
+<span id="exception"></span><h2>Exception<a class="headerlink" href="#module-opti_suite.opti_app.context.exception" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-3"></span><dl class="py exception">
+<dt id="opti_suite.opti_app.context.exception.OptiSuiteDataException">
+<em class="property">exception </em><code class="sig-prename descclassname">opti_suite.opti_app.context.exception.</code><code class="sig-name descname">OptiSuiteDataException</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">errors_dict</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/context/exception.html#OptiSuiteDataException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.context.exception.OptiSuiteDataException" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">OptiSuite</span> <span class="pre">Data</span> <span class="pre">exception.</span></code></p>
+</dd></dl>
+
+<dl class="py exception">
+<dt id="opti_suite.opti_app.context.exception.OptiSuiteException">
+<em class="property">exception </em><code class="sig-prename descclassname">opti_suite.opti_app.context.exception.</code><code class="sig-name descname">OptiSuiteException</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/context/exception.html#OptiSuiteException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.context.exception.OptiSuiteException" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">OptiSuite</span> <span class="pre">runtime</span> <span class="pre">exception.</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="model-data-factory">
+<h2>Model Data Factory<a class="headerlink" href="#model-data-factory" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-opti_suite.opti_app.factory.model_data_factory"></span><dl class="py class">
+<dt id="opti_suite.opti_app.factory.model_data_factory.ModelDataFactory">
+<em class="property">class </em><code class="sig-prename descclassname">opti_suite.opti_app.factory.model_data_factory.</code><code class="sig-name descname">ModelDataFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">request</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/factory/model_data_factory.html#ModelDataFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.factory.model_data_factory.ModelDataFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">class</span> <span class="pre">processes</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">raw</span> <span class="pre">data</span> <span class="pre">and</span> <span class="pre">creates</span> <span class="pre">a</span> <span class="pre">ModelData</span> <span class="pre">which</span> <span class="pre">provides</span> <span class="pre">access</span> <span class="pre">to</span> <span class="pre">all</span> <span class="pre">the</span> <span class="pre">available</span> <span class="pre">data.</span></code></p>
+<blockquote>
+<div><p><em>Attributes</em>:</p>
+<blockquote>
+<div><p><em>data</em> :
+<code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">ModelData</span> <span class="pre">instance.</span></code></p>
+<p><em>request</em> :
+<code class="docutils literal notranslate"><span class="pre">Input</span> <span class="pre">raw</span> <span class="pre">data</span> <span class="pre">-</span> <span class="pre">json</span> <span class="pre">file</span> <span class="pre">format.</span></code></p>
+</div></blockquote>
+<p><em>Methods</em>:</p>
+<blockquote>
+<div><p><em>create</em> :
+<code class="docutils literal notranslate"><span class="pre">Execute</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">methods</span> <span class="pre">to</span> <span class="pre">generate</span> <span class="pre">a</span> <span class="pre">ModelData</span> <span class="pre">instance</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">input</span> <span class="pre">request.</span></code></p>
+<p><em>create_from_json_file</em> :
+<code class="docutils literal notranslate"><span class="pre">Execute</span> <span class="pre">the</span> <span class="pre">internal</span> <span class="pre">methods</span> <span class="pre">to</span> <span class="pre">generate</span> <span class="pre">a</span> <span class="pre">ModelData</span> <span class="pre">instance</span> <span class="pre">from</span> <span class="pre">an</span> <span class="pre">input</span> <span class="pre">json</span> <span class="pre">file</span> <span class="pre">request.</span></code></p>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+
+</div>
+<div class="section" id="model-response-factory">
+<h2>Model Response Factory<a class="headerlink" href="#model-response-factory" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-opti_suite.opti_app.factory.model_response_factory"></span><span class="target" id="module-4"></span><dl class="py class">
+<dt id="opti_suite.opti_app.factory.model_response_factory.ModelResponseFactory">
+<em class="property">class </em><code class="sig-prename descclassname">opti_suite.opti_app.factory.model_response_factory.</code><code class="sig-name descname">ModelResponseFactory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#opti_suite.opti_app.context.model_data.ModelData" title="opti_suite.opti_app.context.model_data.ModelData">opti_suite.opti_app.context.model_data.ModelData</a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/factory/model_response_factory.html#ModelResponseFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.factory.model_response_factory.ModelResponseFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">This</span> <span class="pre">class</span> <span class="pre">processes</span> <span class="pre">the</span> <span class="pre">solution</span> <span class="pre">raw</span> <span class="pre">data</span> <span class="pre">and</span> <span class="pre">creates</span> <span class="pre">the</span> <span class="pre">Response</span> <span class="pre">instance</span> <span class="pre">(engine</span> <span class="pre">response).</span></code></p>
+<blockquote>
+<div><p><em>Attributes</em>:</p>
+<blockquote>
+<div><p><em>data</em> :
+<code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">ModelData</span> <span class="pre">instance</span> <span class="pre">that</span> <span class="pre">contains</span> <span class="pre">the</span> <span class="pre">solution</span> <span class="pre">data.</span></code></p>
+<p><em>response</em> :
+<code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">response</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">optimization</span> <span class="pre">engine.</span></code></p>
+</div></blockquote>
+<p><em>Methods</em>:</p>
+<blockquote>
+<div><p><em>create</em> :
+<code class="docutils literal notranslate"><span class="pre">Execute</span> <span class="pre">the</span> <span class="pre">private</span> <span class="pre">methods</span> <span class="pre">to</span> <span class="pre">build</span> <span class="pre">the</span> <span class="pre">solution.</span></code></p>
+</div></blockquote>
+</div></blockquote>
+<dl class="py method">
+<dt id="opti_suite.opti_app.factory.model_response_factory.ModelResponseFactory.create">
+<em class="property">static </em><code class="sig-name descname">create</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/opti_suite/opti_app/factory/model_response_factory.html#ModelResponseFactory.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#opti_suite.opti_app.factory.model_response_factory.ModelResponseFactory.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method to create an instance of ModelResponse based on the solution stored in ModelData</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">OptiSuite-OptiApp</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2022, Jose Angel Velasco.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
