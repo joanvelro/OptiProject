@@ -9,6 +9,11 @@
 ├── data                                 # general data folder 
 │                              
 ├── docs                                 # Auto-generated documentation        
+│     └── build
+│           └── html                     # HTML version of the auto doc
+│           └── latex                    # latex version of the auto doc
+│           └── pdf                      # pdf version of the auto doc
+│
 │
 ├── notebooks                            # Notebooks folder
 │
@@ -20,9 +25,7 @@
 ├── src                                  # source code
 │    └── opti_suite                             
 │         └── opti_app   
-│               └── constants.py   
-│               └── analyzer                      
-│                    └── data_analyzer.py            
+│               └── constants.py             
 │               └── context                    
 │                    └── model_response.py
 │                    └── exception.py
